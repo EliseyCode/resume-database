@@ -1,12 +1,14 @@
+package ru.enovikow.resume_database;
+
+import ru.enovikow.resume_database.model.Resume;
+import ru.enovikow.resume_database.storage.ArrayStorage;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**
- * Interactive test for ArrayStorage implementation
- * (just run, no need to understand)
- */
 public class MainArray {
+
     private final static ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) throws IOException {
@@ -32,8 +34,8 @@ public class MainArray {
                     break;
                 case "save":
                     r = new Resume();
-                    r.uuid = uuid;
-                    System.out.println(r.uuid);
+                    r.setUuid(uuid);
+                    System.out.println(r.getUuid());
                     ARRAY_STORAGE.save(r);
                     printAll();
                     break;
