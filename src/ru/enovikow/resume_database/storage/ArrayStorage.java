@@ -6,15 +6,16 @@ import java.util.Arrays;
 
 public class ArrayStorage {
 
-    private final Resume[] storage = new Resume[10000];
-    private int size = 0;
     private static final String UUID_NOT_EXIST_ERROR_MESSAGE = "Resume with current uuid does't exist in storage";
     private static final String UUID_EXIST_ERROR_MESSAGE = "Resume with current uuid already exist in storage";
 
+    private static final int STORAGE_LIMIT = 10000;
+    private final Resume[] storage = new Resume[STORAGE_LIMIT];
+
+    private int size = 0;
+
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+        Arrays.fill(storage, 0, size - 1, null);
         size = 0;
     }
 
