@@ -1,8 +1,6 @@
 package ru.enovikow.resume_database.model;
 
-import java.util.Objects;
-
-public class Resume {
+public class Resume implements Comparable<Resume> {
 
     private String uuid;
 
@@ -29,6 +27,11 @@ public class Resume {
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid);
+        return uuid.hashCode();
+    }
+
+    @Override
+    public int compareTo(Resume o) {
+        return uuid.compareTo(o.uuid);
     }
 }
