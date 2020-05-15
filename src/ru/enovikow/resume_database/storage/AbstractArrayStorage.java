@@ -1,7 +1,9 @@
-package ru.enovikow.resume_database.storage.impl;
+package ru.enovikow.resume_database.storage;
 
+import ru.enovikow.resume_database.exception.ExistStorageException;
+import ru.enovikow.resume_database.exception.NotExistStorageException;
+import ru.enovikow.resume_database.exception.StorageException;
 import ru.enovikow.resume_database.model.Resume;
-import ru.enovikow.resume_database.storage.Storage;
 
 import java.util.Arrays;
 
@@ -9,7 +11,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     private static final String UUID_NOT_EXIST_ERROR_MESSAGE = "Resume with current uuid does't exist in storage";
     private static final String UUID_ALREADY_EXIST_ERROR_MESSAGE = "Resume with current uuid already exist in storage";
-    private static final String STORAGE_OVERFLOW_ERROR = "Storage overflow";
+    private static final String STORAGE_OVERFLOW_ERROR_MESSAGE = "Storage overflow";
 
     private static final int STORAGE_LIMIT = 10000;
 
@@ -22,8 +24,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (isResumeExistInStorage(elementIndex)) {
             return storage[elementIndex];
         } else {
-            System.out.println(UUID_NOT_EXIST_ERROR_MESSAGE);
-            return null;
+            throw new NotExistStorageException(UUID_NOT_EXIST_ERROR_MESSAGE, uuid);
         }
     }
 
@@ -36,9 +37,9 @@ public abstract class AbstractArrayStorage implements Storage {
         if (!isResumeExistInStorage(elementIndex)) {
             insertElement(resume, elementIndex);
         } else if (size == STORAGE_LIMIT) {
-            System.out.println(STORAGE_OVERFLOW_ERROR);
+            throw new StorageException(STORAGE_OVERFLOW_ERROR_MESSAGE, resume.getUuid());
         } else {
-            System.out.println(UUID_ALREADY_EXIST_ERROR_MESSAGE);
+            throw new ExistStorageException(UUID_ALREADY_EXIST_ERROR_MESSAGE, resume.getUuid());
         }
     }
 
@@ -46,9 +47,9 @@ public abstract class AbstractArrayStorage implements Storage {
         int elementIndex = getElementIndex(resume.getUuid());
 
         if (isResumeExistInStorage(elementIndex)) {
-            storage[elementIndex].setUuid(resume.getUuid());
+            storage[elementIndex] = resume;
         } else {
-            System.out.println(UUID_NOT_EXIST_ERROR_MESSAGE);
+            throw new NotExistStorageException(UUID_NOT_EXIST_ERROR_MESSAGE, resume.getUuid());
         }
     }
 
@@ -58,7 +59,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (isResumeExistInStorage(elementIndex)) {
             deleteElementFromStorage(elementIndex);
         } else {
-            System.out.println(UUID_NOT_EXIST_ERROR_MESSAGE);
+            throw new NotExistStorageException(UUID_NOT_EXIST_ERROR_MESSAGE, uuid);
         }
     }
 

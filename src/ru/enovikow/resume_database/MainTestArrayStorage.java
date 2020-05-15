@@ -1,18 +1,16 @@
 package ru.enovikow.resume_database;
 
 import ru.enovikow.resume_database.model.Resume;
-import ru.enovikow.resume_database.storage.ArrayStorage;
+import ru.enovikow.resume_database.storage.Storage;
+import ru.enovikow.resume_database.storage.impl.ArrayStorageImpl;
 
 public class MainTestArrayStorage {
-    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    static final Storage ARRAY_STORAGE = new ArrayStorageImpl();
 
     public static void main(String[] args) {
-        Resume r1 = new Resume();
-        r1.setUuid("uuid1");
-        Resume r2 = new Resume();
-        r2.setUuid("uuid2");
-        Resume r3 = new Resume();
-        r3.setUuid("uuid3");
+        Resume r1 = new Resume("uuid1");
+        Resume r2 = new Resume("uuid2");
+        Resume r3 = new Resume("uuid3");
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
@@ -26,7 +24,6 @@ public class MainTestArrayStorage {
         printAll();
         ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
-        r2.setUuid("uuidUpdated");
         ARRAY_STORAGE.update(r2);
         printAll();
         ARRAY_STORAGE.clear();

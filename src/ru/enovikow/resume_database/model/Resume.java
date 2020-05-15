@@ -1,14 +1,20 @@
 package ru.enovikow.resume_database.model;
 
+import static java.util.UUID.randomUUID;
+
 public class Resume implements Comparable<Resume> {
 
-    private String uuid;
+    private final String uuid;
 
     public String getUuid() {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public Resume() {
+        this(randomUUID().toString());
+    }
+
+    public Resume(final String uuid) {
         this.uuid = uuid;
     }
 

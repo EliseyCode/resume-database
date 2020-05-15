@@ -1,6 +1,7 @@
 package ru.enovikow.resume_database.storage.impl;
 
 import ru.enovikow.resume_database.model.Resume;
+import ru.enovikow.resume_database.storage.AbstractArrayStorage;
 
 import static java.lang.Math.abs;
 import static java.lang.System.arraycopy;
@@ -10,8 +11,7 @@ public class SortedArrayStorageImpl extends AbstractArrayStorage {
 
     @Override
     protected int getElementIndex(String uuid) {
-        Resume resume = new Resume();
-        resume.setUuid(uuid);
+        Resume resume = new Resume(uuid);
 
         return binarySearch(storage, 0, size, resume);
     }

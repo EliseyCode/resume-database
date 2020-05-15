@@ -1,7 +1,8 @@
 package ru.enovikow.resume_database;
 
 import ru.enovikow.resume_database.model.Resume;
-import ru.enovikow.resume_database.storage.ArrayStorage;
+import ru.enovikow.resume_database.storage.Storage;
+import ru.enovikow.resume_database.storage.impl.ArrayStorageImpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +10,7 @@ import java.io.InputStreamReader;
 
 public class MainArray {
 
-    private final static ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    private final static Storage ARRAY_STORAGE = new ArrayStorageImpl();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -33,8 +34,7 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    r = new Resume();
-                    r.setUuid(uuid);
+                    r = new Resume(uuid);
                     System.out.println(r.getUuid());
                     ARRAY_STORAGE.save(r);
                     printAll();

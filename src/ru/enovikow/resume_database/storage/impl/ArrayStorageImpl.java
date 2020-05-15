@@ -1,6 +1,7 @@
 package ru.enovikow.resume_database.storage.impl;
 
 import ru.enovikow.resume_database.model.Resume;
+import ru.enovikow.resume_database.storage.AbstractArrayStorage;
 
 public class ArrayStorageImpl extends AbstractArrayStorage {
 
